@@ -13,10 +13,23 @@ class MyApp extends StatelessWidget {
       title: 'Personal Expenses Jangkrik',
       home: MyHomePage(),
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.amber,
-
-      ),
+          primarySwatch: Colors.purple,
+          accentColor: Colors.amber,
+          fontFamily: 'PasirBanter',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                  title: TextStyle(
+                fontFamily: 'OpenSansJangkrik',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              )),
+          appBarTheme: AppBarTheme(
+            textTheme: ThemeData.light().textTheme.copyWith(
+                    title: TextStyle(
+                  fontFamily: 'OpenSansJangkrik',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                )),
+          )),
     );
   }
 }
