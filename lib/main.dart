@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import './widgets/user_transaction.dart';
+import './model/Transaction.dart';
+import './widgets/new_transaction.dart';
+import './widgets/transaction_list.dart';
 
 main() => runApp(MyApp());
 
@@ -8,12 +10,64 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Personal Expenses Jangkrik',
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+
+      ),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransaction = [
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Weekly Groceries',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
+  ];
+
+  void _addTransaction(String trxTitle, double trxAmount) {
+    final newTrx = Transaction(
+      title: trxTitle,
+      amount: trxAmount,
+      date: DateTime.now(),
+      id: DateTime.now().toString(),
+    );
+
+    setState(() {
+      _userTransaction.add(newTrx);
+    });
+  }
+
+  void showModalCreateTrx(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (BuildContext ctxDua) {
+        return GestureDetector(
+          onTap: () {},
+          child: NewTransaction(_addTransaction),
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,13 +76,13 @@ class MyHomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () => showModalCreateTrx(context),
           )
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () => showModalCreateTrx(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SingleChildScrollView(
@@ -42,7 +96,7 @@ class MyHomePage extends StatelessWidget {
                 child: Text('CHART'),
               ),
             ),
-            UserTransaction()
+            TransactionList(_userTransaction)
           ],
         ),
       ),
