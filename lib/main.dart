@@ -18,18 +18,20 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.amber,
           fontFamily: 'PasirBanter',
           textTheme: ThemeData.light().textTheme.copyWith(
-                  title: TextStyle(
-                fontFamily: 'OpenSansJangkrik',
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              )),
+                title: TextStyle(
+                  fontFamily: 'OpenSansJangkrik',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
           appBarTheme: AppBarTheme(
             textTheme: ThemeData.light().textTheme.copyWith(
-                    title: TextStyle(
-                  fontFamily: 'OpenSansJangkrik',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                )),
+                  title: TextStyle(
+                    fontFamily: 'OpenSansJangkrik',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
           )),
     );
   }
@@ -42,7 +44,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransaction = [];
-
 
   List<Transaction> get _recentTransactions {
     return _userTransaction.where((tx) {
