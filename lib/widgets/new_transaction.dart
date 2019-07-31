@@ -17,12 +17,18 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate;
 
   void _submitTrx() {
-    bool empty =
-        _titleController.text.isEmpty || _amountController.text.isEmpty;
+    bool empty = _titleController.text.isEmpty ||
+        _amountController.text.isEmpty ||
+        _selectedDate == null;
     if (empty) return;
     double amount = double.parse(_amountController.text);
     if (empty || amount <= 0) return;
-    widget._addTransaction(_titleController.text, amount);
+    
+    widget._addTransaction(
+      _titleController.text,
+      amount,
+      _selectedDate,
+    );
     Navigator.of(context).pop();
   }
 
