@@ -85,24 +85,25 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _deleteTransaction(String id){
+  void _deleteTransaction(String id) {
     setState(() {
-      _userTransaction.removeWhere((trx) => trx.id == id); 
+      _userTransaction.removeWhere((trx) => trx.id == id);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Personal Expenses'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => showModalCreateTrx(context),
+        )
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expenses'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => showModalCreateTrx(context),
-          )
-        ],
-      ),
+      appBar: appBar,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => showModalCreateTrx(context),
@@ -112,8 +113,20 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_userTransaction, _deleteTransaction)
+            Container(
+              child: Chart(_recentTransactions),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.3,
+            ),
+            Container(
+              child: TransactionList(_userTransaction, _deleteTransaction),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.7,
+            )
           ],
         ),
       ),
